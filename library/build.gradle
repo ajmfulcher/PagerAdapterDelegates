@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+apply plugin: 'maven-publish'
+
 android {
     compileSdkVersion 27
 
@@ -35,6 +37,26 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 }
+
 repositories {
     mavenCentral()
+}
+
+publishing {
+    publications {
+        PagerAdapterDelegatesPublication(MavenPublication) {
+            groupId 'uk.me.ajmfulcher'
+            artifactId 'pageradapterdelegates'
+            version '1.0.0-beta1'
+            pom.withXml {
+                // Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
+            }
+        }
+    }
 }
