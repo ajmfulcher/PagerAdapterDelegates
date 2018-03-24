@@ -6,6 +6,6 @@ interface PagerAdapterDelegate<T> {
 
     fun isForType(item: T): Boolean
 
-    fun createFragment(item: T): Fragment
+    fun createFragment(items: List<T>, item: T, position: Int): Fragment
 
 }

@@ -21,7 +21,7 @@ class DelegatesManager<T>(vararg delegates: PagerAdapterDelegate<T>) {
     fun getItem(position: Int): Fragment {
         val item = items[position]
         delegates.forEach {
-            if (it.isForType(item)) return it.createFragment(item)
+            if (it.isForType(item)) return it.createFragment(items, item, position)
         }
         throw IllegalArgumentException("No matching delegate found for item " + item.toString())
     }

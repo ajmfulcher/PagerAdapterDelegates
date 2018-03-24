@@ -21,14 +21,16 @@ class SimplePagerAdapterDelegateTest: StringSpec() {
 
         "When type matches then createFragmentFromItem is called" {
             val delegate = CapturingSimplePagerAdapterDelegate()
-            delegate.createFragment("Stuff")
+            val item = "Stuff"
+            delegate.createFragment(listOf(item),item, 0)
             delegate.createFragmentFromItemCalled shouldBe true
         }
 
         "When type does not match then createFragmentFromItem is called and an exception is thrown" {
             val delegate = CapturingSimplePagerAdapterDelegate()
             shouldThrow<ClassCastException> {
-                delegate.createFragment(StringBuffer())
+                val item = StringBuffer()
+                delegate.createFragment(listOf(item), item, 0)
             }
             delegate.createFragmentFromItemCalled shouldBe false
         }
@@ -40,7 +42,7 @@ class CapturingSimplePagerAdapterDelegate: SimplePagerAdapterDelegate<String, Ch
 
     var createFragmentFromItemCalled = false
 
-    override fun createFragmentFromItem(item: String): Fragment {
+    override fun createFragmentFromItem(item: String, position: Int): Fragment {
         createFragmentFromItemCalled = true
         return Fragment()
     }

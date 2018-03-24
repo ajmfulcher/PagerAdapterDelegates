@@ -95,7 +95,7 @@ class CapturingPagerAdapterDelegate : PagerAdapterDelegate<String> {
         return true
     }
 
-    override fun createFragment(item: String): Fragment {
+    override fun createFragment(items: List<String>, item: String, position: Int): Fragment {
         isCreateFragmentCalled = true
         createItemSupplied = item
         return Fragment()
@@ -109,7 +109,7 @@ class NeverMatchesDelegate: PagerAdapterDelegate<String> {
         return false
     }
 
-    override fun createFragment(item: String): Fragment {
+    override fun createFragment(items: List<String>, item: String, position: Int): Fragment {
         throw RuntimeException("This should not be reached")
     }
 
@@ -119,7 +119,7 @@ class MatchedDelegate: PagerAdapterDelegate<String> {
 
     override fun isForType(item: String): Boolean = item == "matched"
 
-    override fun createFragment(item: String): Fragment {
+    override fun createFragment(items: List<String>, item: String, position: Int): Fragment {
         return MatchedFragment()
     }
 
@@ -129,7 +129,7 @@ class UnmatchedDelegate: PagerAdapterDelegate<String> {
 
     override fun isForType(item: String): Boolean = item != "matched"
 
-    override fun createFragment(item: String): Fragment {
+    override fun createFragment(items: List<String>, item: String, position: Int): Fragment {
         return UnmatchedFragment()
     }
 

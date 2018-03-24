@@ -9,10 +9,10 @@ abstract class SimplePagerAdapterDelegate<in I:T, T:Any>(private val c: Class<I>
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun createFragment(item: T): Fragment {
-        return createFragmentFromItem(item as I)
+    override fun createFragment(items: List<T>, item: T, position: Int): Fragment {
+        return createFragmentFromItem(item as I, position)
     }
 
-    abstract fun createFragmentFromItem(item: I): Fragment
+    abstract fun createFragmentFromItem(item: I, position: Int): Fragment
 
 }

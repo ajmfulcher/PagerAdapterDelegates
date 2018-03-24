@@ -8,13 +8,13 @@ class StartItemDelegate : PagerAdapterDelegate<ExampleModel> {
 
     override fun isForType(item: ExampleModel): Boolean = item is StartItem
 
-    override fun createFragment(item: ExampleModel): Fragment = StartFragment.newInstance()
+    override fun createFragment(items: List<ExampleModel>, item: ExampleModel, position: Int): Fragment = StartFragment.newInstance()
 
 }
 
 class WithStringPayloadItemDelegate : SimplePagerAdapterDelegate<WithStringPayloadItem, ExampleModel>(WithStringPayloadItem::class.java) {
 
-    override fun createFragmentFromItem(item: WithStringPayloadItem): Fragment {
+    override fun createFragmentFromItem(item: WithStringPayloadItem, position: Int): Fragment {
         return WithStringPayloadFragment.newInstance(item.getPayload())
     }
 
@@ -24,6 +24,6 @@ class EndItemDelegate : PagerAdapterDelegate<ExampleModel> {
 
     override fun isForType(item: ExampleModel): Boolean = item is EndItem
 
-    override fun createFragment(item: ExampleModel): Fragment = EndFragment.newInstance()
+    override fun createFragment(items: List<ExampleModel>, item: ExampleModel, position: Int): Fragment = EndFragment.newInstance()
 
 }
