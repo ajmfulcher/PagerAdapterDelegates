@@ -50,7 +50,7 @@ class DelegatesManagerTest: StringSpec() {
             delegate.createItemSupplied shouldBe "three"
         }
 
-        "When no matching delegate is found then an IllegalArgumentException is thrown" {
+        "When we request an item and no matching delegate is found then an IllegalArgumentException is thrown" {
             val delegatesManager = DelegatesManager<String>()
             delegatesManager.addDelegate(NeverMatchesDelegate())
             delegatesManager.setItems(listOf("one", "two", "three", "four", "five"))
@@ -71,6 +71,34 @@ class DelegatesManagerTest: StringSpec() {
             delegatesManager.getItem(4) shouldBe beInstanceOf(MatchedFragment::class)
         }
 
+        "When we request a page title then the supplied item type is checked" {
+            val delegatesManager = DelegatesManager<String>()
+            val delegate = CapturingPagerAdapterDelegate()
+            delegatesManager.addDelegate(delegate)
+            delegatesManager.setItems(listOf("one", "two", "three", "four", "five"))
+            delegatesManager.getPageTitle(2)
+            delegate.isForTypeCalled shouldBe true
+        }
+
+        "When we request a page title and the item matches then the page title getter is called" {
+            val delegatesManager = DelegatesManager<String>()
+            val delegate = CapturingPagerAdapterDelegate()
+            delegatesManager.addDelegate(delegate)
+            delegatesManager.setItems(listOf("one", "two", "three", "four", "five"))
+            delegatesManager.getPageTitle(2)
+            delegate.isTitleRequested shouldBe true
+        }
+
+        "When we request a page title by position then the correct item is supplied to the delegate" {
+            val delegatesManager = DelegatesManager<String>()
+            val delegate = CapturingPagerAdapterDelegate()
+            delegatesManager.addDelegate(delegate)
+            delegatesManager.setItems(listOf("one", "two", "three", "four", "five"))
+            delegatesManager.getPageTitle(2)
+            delegate.typeItemSupplied shouldBe "three"
+            delegate.getTitleItemSupplied shouldBe "three"
+        }
+
         "Delegates can be added through the constructor" {
             val delegatesManager = DelegatesManager(MatchedDelegate(), UnmatchedDelegate())
             delegatesManager.setItems(listOf("unmatched", "matched"))
@@ -89,6 +117,9 @@ class CapturingPagerAdapterDelegate : PagerAdapterDelegate<String> {
     var isCreateFragmentCalled = false
     var createItemSupplied: String? = null
 
+    var isTitleRequested = false
+    var getTitleItemSupplied: String? = null
+
     override fun isForType(item: String): Boolean {
         isForTypeCalled = true
         typeItemSupplied = item
@@ -99,6 +130,12 @@ class CapturingPagerAdapterDelegate : PagerAdapterDelegate<String> {
         isCreateFragmentCalled = true
         createItemSupplied = item
         return Fragment()
+    }
+
+    override fun getPageTitle(items: List<String>, item: String, position: Int): CharSequence? {
+        isTitleRequested = true
+        getTitleItemSupplied = item
+        return null
     }
 
 }

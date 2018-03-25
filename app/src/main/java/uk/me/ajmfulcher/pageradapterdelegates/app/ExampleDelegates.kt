@@ -10,6 +10,8 @@ class StartItemDelegate : PagerAdapterDelegate<ExampleModel> {
 
     override fun createFragment(items: List<ExampleModel>, item: ExampleModel, position: Int): Fragment = StartFragment.newInstance()
 
+    override fun getPageTitle(items: List<ExampleModel>, item: ExampleModel, position: Int): CharSequence? = item.getName()
+
 }
 
 class WithStringPayloadItemDelegate : SimplePagerAdapterDelegate<WithStringPayloadItem, ExampleModel>(WithStringPayloadItem::class.java) {
@@ -18,6 +20,8 @@ class WithStringPayloadItemDelegate : SimplePagerAdapterDelegate<WithStringPaylo
         return WithStringPayloadFragment.newInstance(item.getPayload())
     }
 
+    override fun getPageTitle(items: List<ExampleModel>, item: ExampleModel, position: Int): CharSequence? = Integer.toString(position)
+
 }
 
 class EndItemDelegate : PagerAdapterDelegate<ExampleModel> {
@@ -25,5 +29,7 @@ class EndItemDelegate : PagerAdapterDelegate<ExampleModel> {
     override fun isForType(item: ExampleModel): Boolean = item is EndItem
 
     override fun createFragment(items: List<ExampleModel>, item: ExampleModel, position: Int): Fragment = EndFragment.newInstance()
+
+    override fun getPageTitle(items: List<ExampleModel>, item: ExampleModel, position: Int): CharSequence? = item.getName()
 
 }

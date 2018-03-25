@@ -20,14 +20,23 @@ class DelegatesManager<T>(vararg delegates: PagerAdapterDelegate<T>) {
 
     fun getItem(position: Int): Fragment {
         val item = items[position]
-        delegates.forEach {
-            if (it.isForType(item)) return it.createFragment(items, item, position)
-        }
-        throw IllegalArgumentException("No matching delegate found for item " + item.toString())
+        return getDelegateForPosition(item).createFragment(items, item, position)
+    }
+
+    fun getPageTitle(position: Int): CharSequence? {
+        val item = items[position]
+        return getDelegateForPosition(item).getPageTitle(items, item, position)
     }
 
     fun addDelegate(delegate: PagerAdapterDelegate<T>) {
         delegates.add(delegate)
+    }
+
+    private fun getDelegateForPosition(item: T): PagerAdapterDelegate<T> {
+        delegates.forEach {
+            if (it.isForType(item)) return it
+        }
+        throw IllegalArgumentException("No matching delegate found for item " + item.toString())
     }
 
 }
