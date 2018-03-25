@@ -8,4 +8,6 @@ interface PagerAdapterDelegate<T> {
 
     fun createFragment(items: List<T>, item: T, position: Int): Fragment
 
+    fun getPageTitle(items: List<T>, item: T, position: Int): CharSequence? = null
+
 }

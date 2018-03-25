@@ -1,8 +1,16 @@
 package uk.me.ajmfulcher.pageradapterdelegates.app
 
-interface ExampleModel
+interface ExampleModel {
 
-class StartItem: ExampleModel
+    fun getName(): CharSequence? = null
+
+}
+
+class StartItem: ExampleModel {
+
+    override fun getName() = "Start"
+
+}
 
 class WithStringPayloadItem(private val payload: String): ExampleModel {
 
@@ -10,4 +18,8 @@ class WithStringPayloadItem(private val payload: String): ExampleModel {
 
 }
 
-class EndItem: ExampleModel
+class EndItem: ExampleModel {
+
+    override fun getName() = "End"
+
+}
