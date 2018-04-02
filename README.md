@@ -1,9 +1,13 @@
 # PagerAdapterDelegates
 
-This library allows an Android [ViewPager](https://developer.android.com/reference/android/support/v4/view/ViewPager.html) adapter to be constructed using composition.
+A library that allows Android [ViewPager](https://developer.android.com/reference/android/support/v4/view/ViewPager.html) items to be created using delegation
 
-By delegating the creation of  ViewPager fragments to a dedicated class, our code is cleaner, and easier to reuse.
+By delegating the creation of  ViewPager fragments to a dedicated class our code is cleaner and easier to reuse.
 
+### Download
+[ ![Download](https://api.bintray.com/packages/ajmfulcher/maven/pager-adapter-delegates/images/download.svg) ](https://bintray.com/ajmfulcher/maven/pager-adapter-delegates/_latestVersion)
+
+### Build Status
 [![Build Status](https://travis-ci.org/ajmfulcher/PagerAdapterDelegates.svg?branch=master)](https://travis-ci.org/ajmfulcher/PagerAdapterDelegates)
 
 ## A Basic Example: View Pager with single page type
