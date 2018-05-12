@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
  * @property delegatesManager an instance of [DelegatesManager] that is wrapped by this class
  */
 @Suppress("unused")
-class DelegatedStatePagerAdapter<T>(fm: FragmentManager?, private val delegatesManager: DelegatesManager<T>): FragmentStatePagerAdapter(fm) {
+class DelegatedStatePagerAdapter<in T>(fm: FragmentManager?, private val delegatesManager: DelegatesManager<T>): FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = delegatesManager.getItem(position)
 
