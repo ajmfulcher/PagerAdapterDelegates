@@ -20,6 +20,10 @@ allprojects {
         google()
         jcenter()
     }
+    ext {
+        release_version = "1.0.0-beta3"
+        release_version_code = 1003
+    }
 }
 
 task clean(type: Delete) {

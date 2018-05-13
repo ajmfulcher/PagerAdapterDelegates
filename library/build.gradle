@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.0-beta2"
+        versionCode release_version_code
+        versionName release_version
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -53,7 +53,7 @@ publishing {
         PagerAdapterDelegatesPublication(MavenPublication) {
             groupId 'uk.me.ajmfulcher'
             artifactId 'pageradapterdelegates'
-            version '1.0.0-beta2'
+            version release_version
             artifact(sourceJar)
             artifact("$buildDir/outputs/aar/library-release.aar")
             pom.withXml {
@@ -81,7 +81,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/ajmfulcher/PagerAdapterDelegates.git'
         version {
-            name = '1.0.0-beta2'
+            name = release_version
             desc = 'Pager Adapter Delegates 1.0.0-beta2'
         }
     }
